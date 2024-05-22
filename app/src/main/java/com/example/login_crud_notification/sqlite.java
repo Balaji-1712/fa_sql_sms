@@ -25,11 +25,13 @@ import java.util.ArrayList;
 public class sqlite extends AppCompatActivity {
 
     private EditText editTextCharityName, editTextAddress, editTextPhone, editTextMessage;
-    private Button btnSave, btnRead, btnUpdate, btnDelete, btnSendMessage, btnSendGroupMessage;
+    private Button btnSave, btnRead, btnUpdate, btnDelete, btnSendMessage, btnSendGroupMessage, btnSearch;
     private MultiAutoCompleteTextView multiAutoCompleteTextView;
     private SQLiteDatabase database;
     private ArrayList<String> phoneNumbers;
     private ArrayAdapter<String> adapter;
+
+    private TextView textViewResult;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -49,6 +51,8 @@ public class sqlite extends AppCompatActivity {
         btnSendMessage = findViewById(R.id.btnSendMessage);
         multiAutoCompleteTextView = findViewById(R.id.multiAutoCompleteTextView);
         btnSendGroupMessage = findViewById(R.id.btnSendGroupMessage);
+        btnSearch = findViewById(R.id.search);
+        textViewResult = findViewById(R.id.result);
 
         // Create or open the SQLite database
         database = openOrCreateDatabase("CharityDB", MODE_PRIVATE, null);
@@ -84,6 +88,13 @@ public class sqlite extends AppCompatActivity {
             public void onClick(View v) {
                 deleteCharityInfo();
                 loadPhoneNumbers();
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchCharityInfo();
             }
         });
 
@@ -184,6 +195,24 @@ public class sqlite extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Failed to delete charity information", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @SuppressLint("Range")
+    private void searchCharityInfo() {
+        String phone = editTextPhone.getText().toString().trim();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM CharityTable WHERE phone_no=?", new String[]{phone});
+        if (cursor.moveToFirst()) {
+            StringBuilder resultBuilder = new StringBuilder();
+            String name = cursor.getString(cursor.getColumnIndex("charity_name"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String phoneNumber = cursor.getString(cursor.getColumnIndex("phone_no"));
+            resultBuilder.append("Charity Name: ").append(name).append("\nAddress: ").append(address).append("\nPhone no: ").append(phoneNumber).append("\n\n");
+            textViewResult.setText(resultBuilder.toString());
+        } else {
+            textViewResult.setText("No charity found with this phone number");
+        }
+        cursor.close();
     }
 
     @SuppressLint("Range")

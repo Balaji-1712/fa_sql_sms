@@ -84,8 +84,20 @@
         android:translationX="200dp"
         android:translationY="-18dp" />
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="237dp"
+        android:layout_height="126dp"
+        android:translationX="40dp"
+        android:translationY="50dp" />
 
-
+    <Button
+        android:id="@+id/search"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="search"
+        android:translationX="130dp"
+        android:translationY="-140dp" />
 
 
 </LinearLayout>
