@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "47168861818",
+    "project_id": "login-crud-notification",
+    "storage_bucket": "login-crud-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47168861818:android:52e2a85ea44de58b912dc3",
+        "android_client_info": {
+          "package_name": "com.example.login_crud_notification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzkIwSt0TY4NuJJ8zZlHgsEs7wm1-y430"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
